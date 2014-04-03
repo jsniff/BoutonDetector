@@ -20,6 +20,8 @@ USAGE:
 
 -On MATLAB command-line, execute command:
 
+-Make sure TVREG folder and the TVREG folder within the outer TVREG folder is in the set path.
+
 AllGlobalParameters();
 
 OUTPUT:
