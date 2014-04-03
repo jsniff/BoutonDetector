@@ -20,7 +20,7 @@ USAGE:
 
 -On MATLAB command-line, execute command:
 
--Make sure TVREG folder and the TVREG folder within the outer TVREG folder is in the set path.
+-Download TVREG from here: http://www.mathworks.com/matlabcentral/fileexchange/29743-tvreg-variational-image-restoration-and-segmentation and put in same directory as working directory.
 
 AllGlobalParameters();
 
