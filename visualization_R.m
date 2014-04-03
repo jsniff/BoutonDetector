@@ -51,10 +51,27 @@ originalfile =imread(FileName3);
 maxim=double(max(max(originalfile)));
 normimage3=double(originalfile)/double(maxim);
 
-figure;
-
-rgb_image = cat(3, normimage, normimage2,  normimage3);
+                          
+                          
+%remove blue channel as it's not needed
+sizeimage = size(normimage2);
+sizexaxis = sizeimage(1);
+sizeyaxis = sizeimage(2);
+normimageremoveblue = zeros(sizexaxis, sizeyaxis);
+%figure;
+rgb_image = cat(3, normimage, normimage2,normimage3);
 imshow(rgb_image);
+%figure;
+rgb_image = cat(3, normimage, normimage2,normimageremoveblue);
+imshow(rgb_image);
+                          
+%enhance green channel
+%figure;
+normimageenhanced = normimage2*1.3;
+rgb_image = cat(3, normimage, normimageenhanced,  normimageremoveblue);
+imshow(rgb_image);
+                          
+
 
 %for plotting borders around cells
 
@@ -71,14 +88,14 @@ end;
 BW=TestMatrix;
 
 [B,L,N] = bwboundaries(BW); 
-
 for i = 1:length(boutonrevised)
- if (boutonrevised(i).originalimageslice <=z) && (boutonrevised(i).imageslice >=z)
- hold on;
- %plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
-  plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o'),
-  text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y'),
-  hold on;
+if (boutonrevised(i).originalimageslice <=z) && (boutonrevised(i).imageslice >=z)
+hold on;
+%plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
+plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 10),
+text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',15),
+hold on;
+
   for k=1:length(B),
     boundary = B{k};
     if(k > N)
