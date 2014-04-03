@@ -9,6 +9,7 @@ git clone https://github.com/jsniff/BoutonDetector.git
 
 -Make sure code folder is in MATLAB's path
 
+-Make sure tvreg folder is in same path as all .m files.
 
 
 USAGE:
