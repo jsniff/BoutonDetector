@@ -11,7 +11,7 @@ global CellSizeLengthParameter;
 global CellSizeDistance;
 global CellNumberofImages;
 
-    CellThresholdParameter = .24;
+    CellThresholdParameter = .235;
     CellconnectivitySize = 1150;
     CellSizeLengthParameter = 0;
     CellSizeDistance = 100;
