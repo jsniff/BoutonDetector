@@ -27,12 +27,12 @@ global DoubleCountDistance;
 global BoutonThresholdParameter;
 global GaussianSigma;
 
-    ConnectivitySize = 10;
-    AcceptanceCellDistance = 21;
+    ConnectivitySize = 7;
+    AcceptanceCellDistance = 14;
     DoubleCountDistance = 12;
     GaussianFilterRadius = 0;
     GaussianSigma=1;
-    BoutonThresholdParameter = .16;
+    BoutonThresholdParameter = .18;
     
 
     [boutonrevised, bouton] = mainwithtiffboutonthresholding();
