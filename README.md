@@ -20,7 +20,7 @@ USAGE:
 
 -In working directory, create folder "InputImages", with input *.tif files, all 3 channels.
 
--Open MATLAB, navigate to working directory
+-Open MATLAB, set path to working directory
 
 -On MATLAB command-line, execute command:
 
