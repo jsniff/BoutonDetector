@@ -9,7 +9,11 @@ git clone https://github.com/jsniff/BoutonDetector.git
 
 -Make sure code folder is in MATLAB's path
 
+-Download tvreg from here: http://www.mathworks.com/matlabcentral/fileexchange/29743-tvreg-variational-image-restoration-and-segmentation and put in same directory as working directory
+
 -Make sure tvreg folder is in same path as all .m files.
+
+-set MATLAB path to include tvreg folder and tvreg/tvreg subfolder by manually setting path in MATLAB.
 
 
 USAGE:
@@ -19,8 +23,6 @@ USAGE:
 -Open MATLAB, navigate to working directory
 
 -On MATLAB command-line, execute command:
-
--Download TVREG from here: http://www.mathworks.com/matlabcentral/fileexchange/29743-tvreg-variational-image-restoration-and-segmentation and put in same directory as working directory.
 
 AllGlobalParameters();
 
