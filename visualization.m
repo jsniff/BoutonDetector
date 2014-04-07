@@ -17,7 +17,7 @@ function [] = visualization(boutonrevised, threshu,uniquemaskarrays);
 % Create visualization output folder
 mkdir('BoutonsDetected_images')
 
-Colors = {'r','y','b', 'r', 'y', 'k', 'r', 'y', 'k', 'r', 'y', 'k', 'r', 'y', 'k'};
+Colors = {'r','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
 % Cell array of colros.
 
 cd('InputImages');
@@ -92,8 +92,8 @@ for i = 1:length(boutonrevised)
 if (boutonrevised(i).originalimageslice <=z) && (boutonrevised(i).imageslice >=z)
 hold on;
 %plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
-plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 10),
-text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',15),
+plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 5),
+text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
 hold on;
 
   for k=1:length(B),
