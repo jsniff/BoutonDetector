@@ -1,4 +1,4 @@
-function [] = visualization(boutonrevised, threshu,uniquemaskarrays);
+function [] = visualization(boutonrevised, threshu,uniquemaskarrays, varargin);
 
 % global CellThresholdParameter;
 % global CellconnectivitySize;
@@ -15,7 +15,34 @@ function [] = visualization(boutonrevised, threshu,uniquemaskarrays);
 % global GaussianSigma;
 
 % Create visualization output folder
-mkdir('BoutonsDetected_images')
+
+
+
+
+sizes=size(varargin{1,1});
+numvarargs =sizes(2);
+if(numvarargs>=1)
+if(isempty(varargin{1})~=1) 
+fullpath = varargin{1,1}{1,1};
+imagedir = strcat(fullpath, '/InputImages');
+end;
+end;
+
+if(numvarargs>1)
+if(isempty(varargin{1,1}{1,2})~=1) 
+UniqueCodeString=varargin{1,1}{1,2};
+end;
+end;
+  %cd(imagedir);
+
+if(numvarargs<1)
+mkdir('BoutonsDetected_images');
+end;
+if(numvarargs>1)
+pathtoboutonimages = strcat(fullpath,'/BoutonsDetected_images/', UniqueCodeString); 
+mkdir(strcat(pathtoboutonimages));
+end;
+
 
 Colors = {'r','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
 % Cell array of colros.
@@ -130,10 +157,16 @@ end;
  nameofimage = cat(2,numberaddon,name);
  hfig = imgcf;
  
+ if(numvarargs<=1)
+  saveas(hfig,strcat('../BoutonsDetected_images/', nameofimage), 'jpeg');
+ end;
+ if(numvarargs>1)
+ if(isempty(varargin{1,1}{1,2})~=1)
+  specificdirectorynameofimage = strcat(pathtoboutonimages, '/',nameofimage);
+  saveas(hfig,specificdirectorynameofimage, 'png'); 
+ end;
+ end;
  
-saveas(hfig,strcat('../BoutonsDetected_images/', nameofimage), 'jpeg');
-
-
 %saveas(hfig,nameofimage, 'png'); 
  
 end;

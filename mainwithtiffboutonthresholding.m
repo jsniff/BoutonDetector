@@ -1,4 +1,4 @@
-function [boutonrevised, bouton] = mainwithtiffboutonthresholding();
+function [boutonrevised, bouton] = mainwithtiffboutonthresholding(varargin);
 %Set All Global Parameters
 global CellThresholdParameter;
 global CellconnectivitySize;
@@ -14,10 +14,19 @@ global DoubleCountDistance;
 global BoutonThresholdParameter;
 global GaussianSigma;
 
-
+    
 [returnredcell, uniquemaskarrays, threshu] = cell_inpainting();
 
 cd('InputImages');
+
+
+numvarargs = length(varargin);
+if(numvarargs >=1)
+    fullpath = varargin{1};
+    UniqueCodeString=varargin{2};
+    imagedir = strcat(fullpath, '/InputImages')
+    cd(imagedir);
+end;
 
 %directory =cd(cd('..'));
 %directory = pwd;
@@ -186,7 +195,7 @@ for j = 1:sizes(1)
  end;
  
  end;
-end;
+end; 
 
  if(distance_min < AcceptanceCellDistance)
      
@@ -205,9 +214,16 @@ end;
  
  cd ../
 
- 
 boutonrevised = placeholderarray(bouton);  
+visualization(boutonrevised, threshu, uniquemaskarrays,varargin);  
+
+% if(numvarargs=0)
+% visualization(boutonrevised, threshu, uniquemaskarray,);  
+% end;
+% 
+% if(numvarargs>=1)
+% visualization(boutonrevised, threshu, uniquemaskarray,);  
+% end;
 
 
-visualization(boutonrevised, threshu, uniquemaskarrays);  
 
