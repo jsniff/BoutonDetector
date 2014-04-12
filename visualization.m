@@ -44,7 +44,7 @@ mkdir(strcat(pathtoboutonimages));
 end;
 
 
-Colors = {'r','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
+Colors = {'y','m','c', 'y', 'm', 'c', 'r', 'm', 'c', 'r', 'm', 'c', 'r', 'm', 'c'};
 % Cell array of colros.
 
 cd('InputImages');
@@ -114,16 +114,13 @@ end;
 end;
 BW=TestMatrix;
 
+%figure;
+%fig = figure;
 [B,L,N] = bwboundaries(BW); 
 for i = 1:length(boutonrevised)
 if (boutonrevised(i).originalimageslice <=z) && (boutonrevised(i).imageslice >=z)
 hold on;
-%plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
-plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 5),
-text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
-hold on;
-
-  for k=1:length(B),
+ for k=1:length(B),
     boundary = B{k};
     if(k > N)
         hold on;
@@ -137,6 +134,15 @@ hold on;
         hold on;
     end
 end
+%plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
+plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 5),
+text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
+hold on;
+%keyboard;
+%v=allchild(fig);
+%uistack(v(1),'down',1);
+%h = get(gca,'Children'); 
+%uistack(h,'bottom');
  end;
 end;
 
@@ -158,7 +164,7 @@ end;
  hfig = imgcf;
  
  if(numvarargs<=1)
-  saveas(hfig,strcat('../BoutonsDetected_images/', nameofimage), 'jpeg');
+  saveas(hfig,strcat('../BoutonsDetected_images/', nameofimage), 'png');
  end;
  if(numvarargs>1)
  if(isempty(varargin{1,1}{1,2})~=1)
