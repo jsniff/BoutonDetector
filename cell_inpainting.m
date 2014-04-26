@@ -124,13 +124,14 @@ IM2 = imcomplement(threshu);
 
 
 %return only slices with cells
-       if(rN>0)     
-       nonemptyslicecount = nonemptyslicecount+1;
+  if(rN>0)
+%nonemptyslicecount slice index chosen to avoid gaps in cellinfomask array index
+   nonemptyslicecount = nonemptyslicecount+1;
        end;
    for i =1:rN
-         [ycoordinatesmask, xcoordinatesmask] = find(rL==i);
-          maskcentroidx = mean(xcoordinatesmask);
-    maskcentroidy = mean(ycoordinatesmask);
+        [ycoordinatesmask, xcoordinatesmask] = find(rL==i);
+        maskcentroidx = mean(xcoordinatesmask);
+        maskcentroidy = mean(ycoordinatesmask);
         cellinfomask(nonemptyslicecount,i).imageslice = z;
         cellinfomask(nonemptyslicecount,i).centroidposx = maskcentroidx;
         cellinfomask(nonemptyslicecount,i).centroidposy = maskcentroidy;

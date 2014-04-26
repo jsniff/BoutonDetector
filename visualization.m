@@ -59,7 +59,7 @@ numberofcells = sizes(1);
 labels = cellstr( num2str([1:length(boutonrevised)]') ); 
 nonemptyslicecount=0;
 
-
+boundarycounter=0;
 for z=1:sizes(2)
     close all;
 FileName=TiffFiles(z).name;
@@ -132,6 +132,9 @@ hold on;
         plot(boundary(:,2),...
             boundary(:,1),'r','LineWidth',1);
         hold on;
+        
+        boundarymasterone = boundary(:,2);
+        boundarymastertwo = boundary(:,1);
     end
 end
 %plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
@@ -145,6 +148,22 @@ hold on;
 %uistack(h,'bottom');
  end;
 end;
+
+boundarycounter=boundarycounter+1;
+if(exist('boundarymasterone')==0)
+     boundarymasterone=0;
+      boundarymastertwo = 0;
+end;
+
+
+boundaryarray(boundarycounter).xcoordinates =  boundarymasterone;
+boundaryarray(boundarycounter).ycoordinates =  boundarymastertwo;
+
+
+%keyboard;
+  %  boutoncounter = boutoncounter +1;
+  
+
 
 %pad visualization frame names with zeros
 
@@ -174,7 +193,16 @@ end;
  end;
  
 %saveas(hfig,nameofimage, 'png'); 
+
+
+
  
 end;
-  
+
 cd ../
+s
+boutonrevised = insideremover(boutonrevised,boundaryarray);
+
+
+
+  
