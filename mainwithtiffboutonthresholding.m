@@ -134,10 +134,13 @@ end;
  rfinal = bwareaopen(boutonthreshold,ConnectivitySize);
  [rLareaopen, areaopen] = bwlabel(rfinal);
  extremapoints=regionprops(rLareaopen,'Extrema');
- centroidpoints=regionprops(rLareaopen,'Centroid');          
+ centroidpoints=regionprops(rLareaopen,'Centroid');     
+ pixellist=regionprops(rLareaopen,'PixelList');    
+
  rRGB = label2rgb(rLareaopen);
  overlay = rRGB;
  binary = im2bw(rRGB,.2);
+
  
  
 
@@ -198,13 +201,17 @@ for j = 1:sizes(1)
 end; 
 
  if(distance_min < AcceptanceCellDistance)
-     
+      boutonpixels =  pixellist(k);
+      sizes = size(boutonpixels.PixelList);
+      numberofpixels = sizes(1);
      count=count+1
-     bouton(q,count).imageslice = q
+     bouton(q,count).imageslice = q;
      distance_min
      bouton(q,count).centroidposx = centroidpoints(k).Centroid(1);
      bouton(q,count).centroidposy = centroidpoints(k).Centroid(2);
      bouton(q,count).cellnumber = min_cell;   
+     bouton(q,count).pixelsize =  numberofpixels;
+     
  end;
  
 end;
@@ -213,8 +220,9 @@ end;
  end;
  
  cd ../
-
+ 
 boutonrevised = placeholderarray(bouton);  
+%keyboard;
 visualization(boutonrevised, threshu, uniquemaskarrays,varargin);  
 
 % if(numvarargs=0)

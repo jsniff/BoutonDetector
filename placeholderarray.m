@@ -22,7 +22,6 @@ count = 0;
 originalcount = 0;
 
 for i = 1:xlength;
-    
     for j = 1:ylength;
  
      
@@ -38,8 +37,10 @@ for i = 1:xlength;
         boutonrevised(count).imageslice = bouton(i,j).imageslice;
      boutonrevised(count).centroidposx = bouton(i,j).centroidposx;
        boutonrevised(count).centroidposy = bouton(i,j).centroidposy;  
-                    boutonrevised(count).originalimageslice =  bouton(i,j).imageslice;
-                        boutonrevised(count).cellnumber =  bouton(i,j).cellnumber;
+              boutonrevised(count).originalimageslice =  bouton(i,j).imageslice;
+            boutonrevised(count).cellnumber =  bouton(i,j).cellnumber;
+          boutonrevised(count).pixelsize = bouton(i,j).pixelsize;
+
 
         end;
        end;
@@ -65,10 +66,11 @@ for i = 1:xlength;
                 distance = sqrt((bouton(i,j).centroidposx-boutonrevised(k).centroidposx)^2+(bouton(i,j).centroidposy-boutonrevised(k).centroidposy)^2);
                 
                 if(distance<=DoubleCountDistance)
-         boutonrevised(k).imageslice = bouton(i,j).imageslice;
-     boutonrevised(k).centroidposx = bouton(i,j).centroidposx;
-       boutonrevised(k).centroidposy = bouton(i,j).centroidposy;  
+              boutonrevised(k).imageslice = bouton(i,j).imageslice;
+              boutonrevised(k).centroidposx = bouton(i,j).centroidposx;
+              boutonrevised(k).centroidposy = bouton(i,j).centroidposy;  
              boutonrevised(k).cellnumber =  bouton(i,j).cellnumber;
+             boutonrevised(k).pixelsize = bouton(i,j).pixelsize;
 
               %boutonrevised(k).originalimageslice = bouton(i,j).originalimageslice;  
               newbouton=0;
@@ -82,14 +84,12 @@ for i = 1:xlength;
                           %add new boutons
             if (newbouton==1)        
                     count = count + 1;
-                   
-                   
             boutonrevised(count).imageslice = bouton(i,j).imageslice;
             boutonrevised(count).centroidposx = bouton(i,j).centroidposx;
             boutonrevised(count).centroidposy = bouton(i,j).centroidposy; 
             boutonrevised(count).originalimageslice =  bouton(i,j).imageslice;
-                   boutonrevised(count).cellnumber =  bouton(i,j).cellnumber;
-
+            boutonrevised(count).cellnumber =  bouton(i,j).cellnumber;
+            boutonrevised(count).pixelsize = bouton(i,j).pixelsize;
                
 
        end;
