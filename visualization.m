@@ -200,7 +200,7 @@ boundaryarray(boundarycounter).ycoordinates =  boundarymastertwo;
 end;
 
 cd ../
-s
+
 boutonrevised = insideremover(boutonrevised,boundaryarray);
 
 
