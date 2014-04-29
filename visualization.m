@@ -16,6 +16,20 @@ function [] = visualization(boutonrevised, threshu,uniquemaskarrays, varargin);
 
 % Create visualization output folder
 
+CellThresholdParameter = .235;
+CellconnectivitySize = 1150;
+CellSizeLengthParameter = 0;
+CellSizeDistance = 100;
+CellNumberofImages=12;
+
+
+ConnectivitySize = 7;
+AcceptanceCellDistance = 14;
+DoubleCountDistance = 12;
+GaussianFilterRadius = 0;
+GaussianSigma=1;
+BoutonThresholdParameter = .18;
+
 
 
 
@@ -44,7 +58,7 @@ mkdir(strcat(pathtoboutonimages));
 end;
 
 
-Colors = {'y','m','c', 'y', 'm', 'c', 'r', 'm', 'c', 'r', 'm', 'c', 'r', 'm', 'c'};
+Colors = {'r','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
 % Cell array of colros.
 
 cd('InputImages');
@@ -59,7 +73,7 @@ numberofcells = sizes(1);
 labels = cellstr( num2str([1:length(boutonrevised)]') ); 
 nonemptyslicecount=0;
 
-boundarycounter=0;
+
 for z=1:sizes(2)
     close all;
 FileName=TiffFiles(z).name;
@@ -114,13 +128,16 @@ end;
 end;
 BW=TestMatrix;
 
-%figure;
-%fig = figure;
 [B,L,N] = bwboundaries(BW); 
 for i = 1:length(boutonrevised)
 if (boutonrevised(i).originalimageslice <=z) && (boutonrevised(i).imageslice >=z)
 hold on;
- for k=1:length(B),
+%plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
+plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 5),
+text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
+hold on;
+
+  for k=1:length(B),
     boundary = B{k};
     if(k > N)
         hold on;
@@ -132,38 +149,10 @@ hold on;
         plot(boundary(:,2),...
             boundary(:,1),'r','LineWidth',1);
         hold on;
-        
-        boundarymasterone = boundary(:,2);
-        boundarymastertwo = boundary(:,1);
     end
 end
-%plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
-plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 5),
-text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
-hold on;
-%keyboard;
-%v=allchild(fig);
-%uistack(v(1),'down',1);
-%h = get(gca,'Children'); 
-%uistack(h,'bottom');
  end;
 end;
-
-boundarycounter=boundarycounter+1;
-if(exist('boundarymasterone')==0)
-     boundarymasterone=0;
-      boundarymastertwo = 0;
-end;
-
-
-boundaryarray(boundarycounter).xcoordinates =  boundarymasterone;
-boundaryarray(boundarycounter).ycoordinates =  boundarymastertwo;
-
-
-%keyboard;
-  %  boutoncounter = boutoncounter +1;
-  
-
 
 %pad visualization frame names with zeros
 
@@ -183,7 +172,7 @@ boundaryarray(boundarycounter).ycoordinates =  boundarymastertwo;
  hfig = imgcf;
  
  if(numvarargs<=1)
-  saveas(hfig,strcat('../BoutonsDetected_images/', nameofimage), 'png');
+  saveas(hfig,strcat('../BoutonsDetected_images/', nameofimage), 'jpeg');
  end;
  if(numvarargs>1)
  if(isempty(varargin{1,1}{1,2})~=1)
@@ -193,16 +182,7 @@ boundaryarray(boundarycounter).ycoordinates =  boundarymastertwo;
  end;
  
 %saveas(hfig,nameofimage, 'png'); 
-
-
-
  
 end;
-
-cd ../
-
-boutonrevised = insideremover(boutonrevised,boundaryarray);
-
-
-
   
+cd ../

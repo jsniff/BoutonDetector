@@ -13,7 +13,19 @@ global DoubleCountDistance;
 global BoutonThresholdParameter;
 global GaussianSigma;
 
-    
+CellThresholdParameter = .235;
+CellconnectivitySize = 1150;
+CellSizeLengthParameter = 0;
+CellSizeDistance = 100;
+CellNumberofImages=12;
+
+
+ConnectivitySize = 7;
+AcceptanceCellDistance = 14;
+DoubleCountDistance = 12;
+GaussianFilterRadius = 0;
+GaussianSigma=1;
+BoutonThresholdParameter = .18;
 
 %function [cellinfomaskunique, uniquemaskarrays, cellinfomask] = cell_inpainting()
 % directory =cd(cd('..'));
@@ -124,14 +136,13 @@ IM2 = imcomplement(threshu);
 
 
 %return only slices with cells
-  if(rN>0)
-%nonemptyslicecount slice index chosen to avoid gaps in cellinfomask array index
-   nonemptyslicecount = nonemptyslicecount+1;
+       if(rN>0)     
+       nonemptyslicecount = nonemptyslicecount+1;
        end;
    for i =1:rN
-        [ycoordinatesmask, xcoordinatesmask] = find(rL==i);
-        maskcentroidx = mean(xcoordinatesmask);
-        maskcentroidy = mean(ycoordinatesmask);
+         [ycoordinatesmask, xcoordinatesmask] = find(rL==i);
+          maskcentroidx = mean(xcoordinatesmask);
+    maskcentroidy = mean(ycoordinatesmask);
         cellinfomask(nonemptyslicecount,i).imageslice = z;
         cellinfomask(nonemptyslicecount,i).centroidposx = maskcentroidx;
         cellinfomask(nonemptyslicecount,i).centroidposy = maskcentroidy;

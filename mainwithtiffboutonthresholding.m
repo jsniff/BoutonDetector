@@ -14,6 +14,20 @@ global DoubleCountDistance;
 global BoutonThresholdParameter;
 global GaussianSigma;
 
+CellThresholdParameter = .235;
+CellconnectivitySize = 1150;
+CellSizeLengthParameter = 0;
+CellSizeDistance = 100;
+CellNumberofImages=12;
+
+
+ConnectivitySize = 7;
+AcceptanceCellDistance = 14;
+DoubleCountDistance = 12;
+GaussianFilterRadius = 0;
+GaussianSigma=1;
+BoutonThresholdParameter = .18;
+
     
 [returnredcell, uniquemaskarrays, threshu] = cell_inpainting();
 
@@ -134,13 +148,12 @@ end;
  rfinal = bwareaopen(boutonthreshold,ConnectivitySize);
  [rLareaopen, areaopen] = bwlabel(rfinal);
  extremapoints=regionprops(rLareaopen,'Extrema');
- centroidpoints=regionprops(rLareaopen,'Centroid');     
- pixellist=regionprops(rLareaopen,'PixelList');    
+ centroidpoints=regionprops(rLareaopen,'Centroid');
+ pixellist=regionprops(rLareaopen,'PixelList');
 
  rRGB = label2rgb(rLareaopen);
  overlay = rRGB;
  binary = im2bw(rRGB,.2);
-
  
  
 
@@ -201,28 +214,29 @@ for j = 1:sizes(1)
 end; 
 
  if(distance_min < AcceptanceCellDistance)
-      boutonpixels =  pixellist(k);
-      sizes = size(boutonpixels.PixelList);
-      numberofpixels = sizes(1);
+%retrive pixel list information
+    boutonpixels =  pixellist(k);
+    sizes = size(boutonpixels.PixelList);
+    numberofpixels = sizes(1);
      count=count+1
-     bouton(q,count).imageslice = q;
+     bouton(q,count).imageslice = q
      distance_min
      bouton(q,count).centroidposx = centroidpoints(k).Centroid(1);
      bouton(q,count).centroidposy = centroidpoints(k).Centroid(2);
-     bouton(q,count).cellnumber = min_cell;   
+     bouton(q,count).cellnumber = min_cell;
+%store pixel list information
      bouton(q,count).pixelsize =  numberofpixels;
-     
+
  end;
- 
+
 end;
 
  close all;
  end;
  
  cd ../
- 
+
 boutonrevised = placeholderarray(bouton);  
-%keyboard;
 visualization(boutonrevised, threshu, uniquemaskarrays,varargin);  
 
 % if(numvarargs=0)
