@@ -14,20 +14,6 @@ global DoubleCountDistance;
 global BoutonThresholdParameter;
 global GaussianSigma;
 
-CellThresholdParameter = .235;
-CellconnectivitySize = 1150;
-CellSizeLengthParameter = 0;
-CellSizeDistance = 100;
-CellNumberofImages=12;
-
-
-ConnectivitySize = 7;
-AcceptanceCellDistance = 14;
-DoubleCountDistance = 12;
-GaussianFilterRadius = 0;
-GaussianSigma=1;
-BoutonThresholdParameter = .18;
-
     
 [returnredcell, uniquemaskarrays, threshu] = cell_inpainting();
 
@@ -149,6 +135,7 @@ end;
  [rLareaopen, areaopen] = bwlabel(rfinal);
  extremapoints=regionprops(rLareaopen,'Extrema');
  centroidpoints=regionprops(rLareaopen,'Centroid');
+%retrieve pixel list information
  pixellist=regionprops(rLareaopen,'PixelList');
 
  rRGB = label2rgb(rLareaopen);
@@ -214,7 +201,7 @@ for j = 1:sizes(1)
 end; 
 
  if(distance_min < AcceptanceCellDistance)
-%retrive pixel list information
+%retrieve pixel list information per bouton
     boutonpixels =  pixellist(k);
     sizes = size(boutonpixels.PixelList);
     numberofpixels = sizes(1);

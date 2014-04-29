@@ -22,7 +22,7 @@ count = 0;
 originalcount = 0;
 
 
-%Store Bouton Image Slice info in text files
+%Store Bouton info for all Image Slices in text file
 FinalName = 'boutonrevised_full_list.txt';
 fid=fopen(FinalName,'a');
 fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\n', 'BoutonId', 'ImageSlice', 'CentroidPosX',  'CentroidPosY', 'CellNumber','PixelSize')
@@ -47,8 +47,9 @@ for i = 1:xlength;
             boutonrevised(count).cellnumber =  bouton(i,j).cellnumber;
             %store pixel information
             boutonrevised(count).pixelsize = bouton(i,j).pixelsize;
-            %Store Bouton Image Slice info in text files
-        fprintf(fid, '%i\t%i\t%.2f\t%.2f\t%i\t%i\n', [count, bouton(i,j).imageslice, bouton(i,j).centroidposx,  bouton(i,j).centroidposy, bouton(i,j).cellnumber,bouton(i,j).pixelsize].')
+
+            %Store Bouton Image Slice info in text file
+            fprintf(fid, '%i\t%i\t%.2f\t%.2f\t%i\t%i\n', [count, bouton(i,j).imageslice, bouton(i,j).centroidposx,  bouton(i,j).centroidposy, bouton(i,j).cellnumber,bouton(i,j).pixelsize].')
 
 
         end;
@@ -81,7 +82,8 @@ for i = 1:xlength;
             boutonrevised(k).cellnumber =  bouton(i,j).cellnumber;
             %store pixel information
             boutonrevised(k).pixelsize = bouton(i,j).pixelsize;
-          %Store Bouton Image Slice info in text files
+                                  
+           %Store Bouton Image Slice info in text file
            fprintf(fid, '%i\t%i\t%.2f\t%.2f\t%i\t%i\n', [k, bouton(i,j).imageslice, bouton(i,j).centroidposx,  bouton(i,j).centroidposy, bouton(i,j).cellnumber,bouton(i,j).pixelsize].')
 
 
@@ -107,7 +109,8 @@ for i = 1:xlength;
             boutonrevised(count).cellnumber =  bouton(i,j).cellnumber;
             %store pixel information
             boutonrevised(count).pixelsize = bouton(i,j).pixelsize;
-            %Store Bouton Image Slice info in text files
+                   
+            %Store Bouton Image Slice info in text file
             fprintf(fid, '%i\t%i\t%.2f\t%.2f\t%i\t%i\n', [count, bouton(i,j).imageslice, bouton(i,j).centroidposx,  bouton(i,j).centroidposy, bouton(i,j).cellnumber,bouton(i,j).pixelsize].')
 
 
@@ -118,7 +121,9 @@ for i = 1:xlength;
     end;
 end;
 end;
-    fclose(fid);
+    
+% Close bouton image slice info text file
+fclose(fid);
 
  
  

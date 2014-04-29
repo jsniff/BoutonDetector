@@ -13,19 +13,7 @@ global DoubleCountDistance;
 global BoutonThresholdParameter;
 global GaussianSigma;
 
-CellThresholdParameter = .235;
-CellconnectivitySize = 1150;
-CellSizeLengthParameter = 0;
-CellSizeDistance = 100;
-CellNumberofImages=12;
 
-
-ConnectivitySize = 7;
-AcceptanceCellDistance = 14;
-DoubleCountDistance = 12;
-GaussianFilterRadius = 0;
-GaussianSigma=1;
-BoutonThresholdParameter = .18;
 
 %function [cellinfomaskunique, uniquemaskarrays, cellinfomask] = cell_inpainting()
 % directory =cd(cd('..'));

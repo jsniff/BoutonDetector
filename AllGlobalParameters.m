@@ -73,7 +73,6 @@ CellThresholdParameterVector = [.23:.01:.28];
         [boutonrevised, bouton] = mainwithtiffboutonthresholding();  
     end;
 
-keyboard;
     
     
     tablestructure = struct2table(boutonrevised);
