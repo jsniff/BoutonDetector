@@ -181,6 +181,7 @@ for j = 1:sizes(1)
      if (distance <= distance_min)
       distance_min = distance;
       min_cell = j;
+      %% 
             if(distance_min <20)
                 distance_min;
             end;
@@ -206,13 +207,19 @@ end;
     sizes = size(boutonpixels.PixelList);
     numberofpixels = sizes(1);
      count=count+1
+     %bouton acceptance or rejection method for inside pv synapse cell
+     %structure
+     cd ../
+   boutonisonorout = boutoninsidecellcheck(centroidpoints(k).Centroid(1), centroidpoints(k).Centroid(2),uniquemaskarrays(min_cell,q), q);
+     
+     if(boutonisonorout ==1)
      bouton(q,count).imageslice = q
-     distance_min
      bouton(q,count).centroidposx = centroidpoints(k).Centroid(1);
      bouton(q,count).centroidposy = centroidpoints(k).Centroid(2);
      bouton(q,count).cellnumber = min_cell;
 %store pixel list information
      bouton(q,count).pixelsize =  numberofpixels;
+     end;
 
  end;
 
@@ -221,10 +228,11 @@ end;
  close all;
  end;
  
- cd ../
-
+     cd ../
+     
 boutonrevised = placeholderarray(bouton);  
 visualization(boutonrevised, threshu, uniquemaskarrays,varargin);  
+
 
 % if(numvarargs=0)
 % visualization(boutonrevised, threshu, uniquemaskarray,);  

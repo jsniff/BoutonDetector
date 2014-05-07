@@ -45,25 +45,37 @@ end;
 Colors = {'r','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
 % Cell array of colros.
 
+%import line by line data, used for image by image visualization
+FinalName = 'boutonrevised_full_list.txt'
+boutonrevisedallimages= importdata(FinalName)
+boutonrevisedallimagesdata = boutonrevisedallimages.data;
+
+
 cd('InputImages');
 
 TiffFiles=dir(['*c0001.tif']);
 TiffFiles2=dir(['*c0002.tif']);
 TiffFiles3=dir(['*c0003.tif']);
 
+
 numberofFiles = length(TiffFiles);
 sizes =  size(uniquemaskarrays);
 numberofcells = sizes(1);
-labels = cellstr( num2str([1:length(boutonrevised)]') ); 
+%used to store bouton id for image by image visualization
+labels = cellstr( num2str([1:max(boutonrevisedallimagesdata(:,1))]') ); 
 nonemptyslicecount=0;
 
-
+boundarycounter=0;
 for z=1:sizes(2)
-    close all;
+    z
+    close all;    
+
 FileName=TiffFiles(z).name;
 FileName2=TiffFiles2(z).name;
 FileName3=TiffFiles3(z).name;
 originalfile =imread(FileName);
+
+
 maxim=double(max(max(originalfile)));
 normimage=double(originalfile)/double(maxim);
 
@@ -76,7 +88,6 @@ originalfile =imread(FileName3);
 maxim=double(max(max(originalfile)));
 normimage3=double(originalfile)/double(maxim);
 
-                          
                           
 %remove blue channel as it's not needed
 sizeimage = size(normimage2);
@@ -95,7 +106,9 @@ imshow(rgb_image);
 normimageenhanced = normimage2*1.3;
 rgb_image = cat(3, normimage, normimageenhanced,  normimageremoveblue);
 imshow(rgb_image);
-                          
+                    
+
+%Access Text File with All Image Data, To Visualize for Every Image Slice
 
 
 %for plotting borders around cells
@@ -112,13 +125,15 @@ end;
 end;
 BW=TestMatrix;
 
+
 [B,L,N] = bwboundaries(BW); 
-for i = 1:length(boutonrevised)
-if (boutonrevised(i).originalimageslice <=z) && (boutonrevised(i).imageslice >=z)
+for i = 1:length(boutonrevisedallimagesdata)
+    labelexample = cellstr(num2str(boutonrevisedallimagesdata(i,1))); 
+if (boutonrevisedallimagesdata(i,2)==z)
 hold on;
-%plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'g*', 'MarkerSize',5)
-plot(boutonrevised(i).centroidposx,boutonrevised(i).centroidposy,'color',Colors{boutonrevised(i).cellnumber},'marker','o', 'MarkerSize', 5),
-text(boutonrevised(i).centroidposx, boutonrevised(i).centroidposy, labels(i), 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
+%Visualization for line by line data, used for image by image visualization
+plot(boutonrevisedallimagesdata(i,3),boutonrevisedallimagesdata(i,4),'color',Colors{boutonrevisedallimagesdata(i,5)},'marker','o', 'MarkerSize', 5),
+text(boutonrevisedallimagesdata(i,3), boutonrevisedallimagesdata(i,4),  labelexample, 'VerticalAlignment','bottom','HorizontalAlignment','right', 'Color','y', 'FontSize',5),
 hold on;
 
   for k=1:length(B),
@@ -133,10 +148,26 @@ hold on;
         plot(boundary(:,2),...
             boundary(:,1),'r','LineWidth',1);
         hold on;
+        
+        boundarymasterone = boundary(:,2);
+        boundarymastertwo = boundary(:,1);
     end
 end
  end;
 end;
+
+
+
+boundarycounter=boundarycounter+1
+if(exist('boundarymasterone')==0)
+     boundarymasterone=0;
+      boundarymastertwo = 0;
+end;
+
+
+boundaryarray(boundarycounter).xcoordinates =  boundarymasterone;
+boundaryarray(boundarycounter).ycoordinates =  boundarymastertwo;
+
 
 %pad visualization frame names with zeros
 
@@ -168,5 +199,11 @@ end;
 %saveas(hfig,nameofimage, 'png'); 
  
 end;
+                          
+    keyboard;
+    cd ../
+
+                          
+
+                          
   
-cd ../
