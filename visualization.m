@@ -42,7 +42,7 @@ mkdir(strcat(pathtoboutonimages));
 end;
 
 
-Colors = {'r','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
+Colors = {'k','m','b', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k', 'r', 'm', 'k'};
 % Cell array of colros.
 
 %import line by line data, used for image by image visualization

@@ -17,6 +17,7 @@ global GaussianSigma;
     
 [returnredcell, uniquemaskarrays, threshu] = cell_inpainting();
 
+
 cd('InputImages');
 
 
@@ -211,7 +212,20 @@ end;
      %structure
      cd ../
    boutonisonorout = boutoninsidecellcheck(centroidpoints(k).Centroid(1), centroidpoints(k).Centroid(2),uniquemaskarrays(min_cell,q), q);
-     
+   %Put Condition in, if Bouton near a Pole  
+   currentboutonslice = q;
+   slicesfrombeginning =  currentboutonslice- returnredcell(min_cell).originalimageslice;
+   slicesfromend = returnredcell(min_cell).originalimageslice- currentboutonslice;
+   clear boutonisonourout;
+   if(slicesfrombeginning <5 && slicesfrombeginning>=0)
+   boutonisonorout = 1
+   end;
+   
+   if(slicesfromend <5 && slicesfromend>=0)
+   boutonisonorout = 1
+   end;
+   
+   
      if(boutonisonorout ==1)
      bouton(q,count).imageslice = q
      bouton(q,count).centroidposx = centroidpoints(k).Centroid(1);
