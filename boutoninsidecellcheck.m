@@ -23,7 +23,7 @@ for j = 1:length(x)
 end;
 [B,L,N] = bwboundaries(CellMask); 
 %figure;
-%imshow(CellMask);
+%%imshow(CellMask);
 
 for k=1:length(B),
     boundary = B{k};

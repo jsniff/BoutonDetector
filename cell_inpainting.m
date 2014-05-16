@@ -44,7 +44,7 @@ binimage.temp = im2bw(normimage, CellThresholdParameter);
 
 %save image right before;
 figure(1);
-imshow(binimage.temp);
+%imshow(binimage.temp);
 inpaintedfigure =figure(1);
 namenumber = num2str(z);
 
@@ -58,7 +58,7 @@ close all;
 
 binimage = bwareaopen(binimage.temp, CellconnectivitySize);
 figure(2);
-imshow(binimage);
+%imshow(binimage);
 inpaintedfigure =figure(2);
 
 
@@ -90,7 +90,7 @@ f(D) = rand(nnz(D),1);
 
 %figure(4);
 
-%imshow(f);
+%%imshow(f);
 
 
 figure(5);
@@ -106,11 +106,11 @@ u = tvinpaint(f,lambda,D,[],[],[],@tvregsimpleplot);
 title('Inpainted');
 figure(6);
 inpaintedfigure =figure;
-imshow(u);
+%imshow(u);
 figure(7);
 blackandwhitefigure=figure;
 threshu=im2bw(u,0.7);
-imshow(threshu);
+%imshow(threshu);
 namenumber = num2str(z);
 nameinpaintedfigure = 'inpaintedfigure';
 nameblackandwhitefigure = 'blackandwhitefigure';
@@ -129,14 +129,19 @@ IM2 = imcomplement(threshu);
        end;
    for i =1:rN
          [ycoordinatesmask, xcoordinatesmask] = find(rL==i);
-          maskcentroidx = mean(xcoordinatesmask);
-    maskcentroidy = mean(ycoordinatesmask);
+    %Code used to generate cell mask per cell
+  CellMask = zeros(size(rL));
+ for j = 1:length(xcoordinatesmask)
+ CellMask(ycoordinatesmask(j),xcoordinatesmask(j))=1;
+ end;
+        maskcentroidx = mean(xcoordinatesmask);
+        maskcentroidy = mean(ycoordinatesmask);
         cellinfomask(nonemptyslicecount,i).imageslice = z;
         cellinfomask(nonemptyslicecount,i).centroidposx = maskcentroidx;
         cellinfomask(nonemptyslicecount,i).centroidposy = maskcentroidy;
         cellinfomask(nonemptyslicecount,i).ycoordinatesmask = ycoordinatesmask;
         cellinfomask(nonemptyslicecount,i).xcoordinatesmask = xcoordinatesmask;
-        cellinfomask(nonemptyslicecount,i).imagecellmask = rL;
+        cellinfomask(nonemptyslicecount,i).imagecellmask = CellMask;
    end;%end;
 
  end;

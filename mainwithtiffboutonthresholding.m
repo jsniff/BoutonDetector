@@ -49,7 +49,7 @@ normimage=double(originalfile)/double(maxim);
 
  %save a version of normalized image
   figure;
-  imshow(normimage);
+  %imshow(normimage);
   h = gcf; 
  name = num2str(q);
  name2 = 'normalizedimage';
@@ -67,7 +67,7 @@ normimage=double(originalfile)/double(maxim);
  gaussianfilterfile = normimage;
 
   figure;
-  imshow(gaussianfilterfile);
+  %imshow(gaussianfilterfile);
   h = gcf; 
  name = num2str(q);
  name2 = 'gaussianfilterfile';
@@ -90,7 +90,7 @@ end;
   
  %save a version of bouton thresholdedimage 
  figure;
- imshow(boutonthreshold);
+ %imshow(boutonthreshold);
  h = gcf; 
  name = num2str(q);
  name2 = 'thresholdedimage';
@@ -119,7 +119,7 @@ end;
   
  %save a version of applied binary image thresholding
 %  figure;
-%  imshow(binary);
+%  %imshow(binary);
 %  h = gcf; 
 %  name = num2str(q);
 %  name2 = 'appliedbinaryimagethresholding';
@@ -153,19 +153,19 @@ end;
 
  %Save  Version of Normalized Image verse All Identified Boutons
  figure;
- subplot(2,1,1), imshow(normimage);
- subplot(2,1,2), imshow(overlay);
+ %subplot(2,1,1), %imshow(normimage);
+ %subplot(2,1,2), %imshow(overlay);
    
   h = gcf; 
  name = num2str(q);
  name2 = num2str(100);
- namefinal = cat(2,name,name2);
+ namefinal = cat(2,name,name2); 
  %saveas(h,namefinal, 'jpg');  
  %Accept Boutons Only Within a Certain Distance
  kprevious=0;
 for k = 1: length(centroidpoints)
- centroidpositionx = centroidpoints(k).Centroid(1)
-centroidpositiony = centroidpoints(k).Centroid(2)
+ centroidpositionx = centroidpoints(k).Centroid(1);
+centroidpositiony = centroidpoints(k).Centroid(2);
  sizes = size(uniquemaskarrays);
  distance_min = 20000;
  min_cell = 0;
@@ -207,7 +207,7 @@ end;
     boutonpixels =  pixellist(k);
     sizes = size(boutonpixels.PixelList);
     numberofpixels = sizes(1);
-     count=count+1
+     count=count+1;
      %bouton acceptance or rejection method for inside pv synapse cell
      %structure
      cd ../
@@ -218,16 +218,16 @@ end;
    slicesfromend = returnredcell(min_cell).originalimageslice- currentboutonslice;
    clear boutonisonourout;
    if(slicesfrombeginning <5 && slicesfrombeginning>=0)
-   boutonisonorout = 1
+   boutonisonorout = 1;
    end;
    
    if(slicesfromend <5 && slicesfromend>=0)
-   boutonisonorout = 1
+   boutonisonorout = 1;
    end;
    
    
      if(boutonisonorout ==1)
-     bouton(q,count).imageslice = q
+     bouton(q,count).imageslice = q;
      bouton(q,count).centroidposx = centroidpoints(k).Centroid(1);
      bouton(q,count).centroidposy = centroidpoints(k).Centroid(2);
      bouton(q,count).cellnumber = min_cell;
