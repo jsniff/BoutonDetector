@@ -1,4 +1,4 @@
-function [cellinfomaskunique, uniquemaskarrays, threshu] = cell_inpainting()
+function [cellinfomaskunique, uniquemaskarrays, threshu] = cell_inpainting_newmethod()
 global CellThresholdParameter;
 global CellconnectivitySize;
 global CellSizeLengthParameter;
@@ -23,7 +23,7 @@ global GaussianSigma;
 
 cd('InputImages');
 
-TiffFiles=dir(['*c003.tif']);
+TiffFiles=dir(['*c0003.tif']);
 
 %TiffFiles=dir(['*C3-C1-3--z1-75(leftedgeROI),CAcorr,z5-73,BChm--Cell003*.tif']);
 %TiffFiles=dir(['*z0074_c0002.tif']);
@@ -41,6 +41,44 @@ maxim=double(max(max(image)));
 normimage=double(image)/double(maxim);
 
 
+
+TiffFiles2=dir(['*c0001.tif']);
+
+%TiffFiles=dir(['*z0074_c0002.tif']);
+numberofFiles = length(TiffFiles2);
+FileName=TiffFiles2(z).name
+
+
+%Renormalize Image for Dsiplay
+image=imread(FileName);
+
+maxim=double(max(max(image)));
+
+normimage2=double(image)/double(maxim);
+
+%%normimage2 = normimage;
+
+
+%normimage = normimage-normimage2;
+
+
+ sizes = size(normimage);
+ newimage = zeros(sizes);
+
+for i = 1:sizes(1)
+    for j = 1:sizes(2)
+        if(normimage(i,j)-normimage2(i,j)>0);
+       newimage(i,j) =  normimage(i,j)-normimage2(i,j);
+        else
+            newimage(i,j) = 0;
+    end;
+    end;
+end;
+
+
+    normimage = newimage;
+        
+
 %Apply Thresholding and Connectivity Parameters
 CellThresholdParameter = 1.5*mean(mean(normimage));
 %binimage.temp = im2bw(normimage, 0.04);
@@ -48,7 +86,7 @@ binimage.temp = im2bw(normimage, CellThresholdParameter);
 
 %save image right before;
 figure(1);
-%imshow(binimage.temp);
+imshow(binimage.temp);
 inpaintedfigure =figure(1);
 namenumber = num2str(z);
 
@@ -62,7 +100,7 @@ close all;
 
 binimage = bwareaopen(binimage.temp, CellconnectivitySize);
 figure(2);
-%imshow(binimage);
+imshow(binimage);
 inpaintedfigure =figure(2);
 
 
@@ -94,7 +132,7 @@ f(D) = rand(nnz(D),1);
 
 %figure(4);
 
-%%imshow(f);
+imshow(f);
 
 
 figure(5);
@@ -107,12 +145,14 @@ shg;
 % Inpaint
 u = tvinpaint(f,lambda,D,[],[],[],@tvregsimpleplot);
 title('Inpainted');
+
+
 figure(6);
 imshow(u);
 figure(7);
 blackandwhitefigure=figure;
 threshu=im2bw(u,0.7);
-%imshow(threshu);
+imshow(threshu);
 close all;
 figure(1);
 hold on;
@@ -135,7 +175,7 @@ saveas(blackandwhitefigure,nameblackandwhitefigure, 'jpg');
 
 
 %TiffFiles2=dir(['*C1-C1-3--z1-75(leftedgeROI),CAcorr,z5-73,BChm--Cell003*.tif']);
-TiffFiles2=dir(['*c001.tif']);
+TiffFiles2=dir(['*c0001.tif']);
 
 %TiffFiles=dir(['*z0074_c0002.tif']);
 numberofFiles = length(TiffFiles2);
@@ -159,7 +199,7 @@ binimage.temp = im2bw(normimage, CellThresholdParameterRed);
 
 %save image right before;
 figure(1);
-%imshow(binimage.temp);
+imshow(binimage.temp);
 inpaintedfigure =figure(1);
 namenumber = num2str(z);
 
@@ -173,7 +213,7 @@ close all;
 
 binimage = bwareaopen(binimage.temp, CellconnectivitySize);
 figure(2);
-%imshow(binimage);
+imshow(binimage);
 inpaintedfigure =figure(2);
 
 
@@ -205,7 +245,7 @@ f(D) = rand(nnz(D),1);
 
 %figure(4);
 
-%%imshow(f);
+imshow(f);
 
 
 figure(5);
@@ -223,7 +263,7 @@ imshow(u);
 figure(7);
 blackandwhitefigure=figure;
 threshu=im2bw(u,0.7);
-%imshow(threshu);
+imshow(threshu);
 close all;
 figure(1);
 hold on;
@@ -291,5 +331,3 @@ end;
 cd ../
 
 [cellinfomaskunique, uniquemaskarrays, threshu] = uniquecellinfo(cellinfomask, threshu);
-
-

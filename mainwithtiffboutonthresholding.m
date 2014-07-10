@@ -41,8 +41,9 @@ numberofFiles = length(TiffFiles);
   count=0;
  uniquemaskarraysize = size(uniquemaskarrays);
  loopsize = uniquemaskarraysize(2);
- for q=1:numberofFiles
+ for q=1:numberofFiles;
      FileName = TiffFiles(q).name
+
 originalfile =imread(FileName);
 maxim=double(max(max(originalfile)));
 normimage=double(originalfile)/double(maxim);

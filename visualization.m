@@ -67,7 +67,7 @@ labels = cellstr( num2str([1:max(boutonrevisedallimagesdata(:,1))]') );
 nonemptyslicecount=0;                    
 boundarycounter=0;
 
-
+                          
                       
 for z=1:numberofFiles
                         
@@ -91,7 +91,6 @@ for z=1:numberofFiles
                           maxim=double(max(max(originalfile)));
                           normimage3=double(originalfile)/double(maxim);
                           
-                          
                           %remove blue channel as it's not needed
                           sizeimage = size(normimage2);
                           sizexaxis = sizeimage(1);
@@ -99,16 +98,16 @@ for z=1:numberofFiles
                           normimageremoveblue = zeros(sizexaxis, sizeyaxis);
                           %figure;
                           rgb_image = cat(3, normimage, normimage2,normimage3);
-                          imshow(rgb_image);
+                         imshow(rgb_image);
                           %figure;
-                          rgb_image = cat(3, normimage, normimage2,normimageremoveblue);
+                          %rgb_image = cat(3, normimage, normimage2,normimageremoveblue);
                           %imshow(rgb_image);
                           
                           %enhance green channel
                           %figure;
-                          normimageenhanced = normimage2*1.3;
-                          rgb_image = cat(3, normimage, normimageenhanced,  normimageremoveblue);
-                          imshow(rgb_image);
+                          %normimageenhanced = normimage2*1.3;
+                          %rgb_image = cat(3, normimage, normimageenhanced,  normimageremoveblue);
+                          %imshow(rgb_image);
                           
                           
                           %Access Text File with All Image Data, To Visualize for Every Image Slice
@@ -127,7 +126,6 @@ for z=1:numberofFiles
                         clear B; clear L; clear N;
                         [B,L,N] = bwboundaries(uniquemaskarrays(a,z).imagecellmask);
                           
-                        keyboard;
                         for k=1:length(B),
                           boundary = B{k};
                           if(k > N)
