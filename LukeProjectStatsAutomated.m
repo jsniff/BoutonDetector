@@ -52,7 +52,7 @@ end;
 
 
 
-%mean bouton statistics
+%mean bouton statistics 
 sorted_matrix = sortrows(boutonlist,5);
 sortedmatrixnoncell = cell2mat(sorted_matrix);
 boutonids = sortedmatrixnoncell(:,1);
@@ -79,11 +79,19 @@ meanentireentireboundarycellsize = mean(entireboundarycellsize)
 %meanbountonspercell
 meanbountonspercell = mean(n)
  %boutons per volume
+ 
+ %correct entire cellsize for when some bouton are not matched to cells
+entirecellsize = entirecellsize(:,(1:length(n)));
+ 
 boutonspervolumevector = n./entirecellsize
 %mean boutons per volume
 meanboutoboutonspervolumevector = mean(boutonspervolumevector)
 %std boutons per volume
 stdboutoboutonspervolumevector = std(boutonspervolumevector)
+
+ %correct entire cellsize for when some bouton are not matched to cells
+ entireboundarycellsize = entireboundarycellsize(:,(1:length(n)))
+
 %mean boutons per surface
 boutonspersurfacevector = n./entireboundarycellsize
 meanboutonspersurfacevector = mean(boutonspersurfacevector)
