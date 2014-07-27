@@ -23,7 +23,7 @@ global GaussianSigma;
 
 cd('InputImages');
 
-TiffFiles=dir(['*c0003.tif']);
+TiffFiles=dir(['*c003.tif']);
 
 %TiffFiles=dir(['*C3-C1-3--z1-75(leftedgeROI),CAcorr,z5-73,BChm--Cell003*.tif']);
 %TiffFiles=dir(['*z0074_c0002.tif']);
@@ -42,7 +42,7 @@ normimage=double(image)/double(maxim);
 
 
 
-TiffFiles2=dir(['*c0001.tif']);
+TiffFiles2=dir(['*c001.tif']);
 
 %TiffFiles=dir(['*z0074_c0002.tif']);
 numberofFiles = length(TiffFiles2);
@@ -65,19 +65,25 @@ normimage2=double(image)/double(maxim);
  sizes = size(normimage);
  newimage = zeros(sizes);
 
-for i = 1:sizes(1)
-    for j = 1:sizes(2)
-        if(normimage(i,j)-normimage2(i,j)>0);
-       newimage(i,j) =  normimage(i,j)-normimage2(i,j);
-        else
-            newimage(i,j) = 0;
-    end;
-    end;
-end;
+ 
+ 
 
+%this is used for gray channel thresholding; with new thresholding method 
+%from 7/27, this is not needed
 
-    normimage = newimage;
-        
+% for i = 1:sizes(1)
+%     for j = 1:sizes(2)
+%         if(normimage(i,j)-normimage2(i,j)>0);
+%        newimage(i,j) =  normimage(i,j)-normimage2(i,j);
+%         else
+%             newimage(i,j) = 0;
+%     end;
+%     end;
+% end;
+% 
+% 
+%     normimage = newimage;
+%         
 
 %Apply Thresholding and Connectivity Parameters
 CellThresholdParameter = 1.5*mean(mean(normimage));
@@ -171,11 +177,13 @@ saveas(blackandwhitefigure,nameblackandwhitefigure, 'jpg');
 
 
 
+graymethod = IM2;
+
 
 
 
 %TiffFiles2=dir(['*C1-C1-3--z1-75(leftedgeROI),CAcorr,z5-73,BChm--Cell003*.tif']);
-TiffFiles2=dir(['*c0001.tif']);
+TiffFiles2=dir(['*c001.tif']);
 
 %TiffFiles=dir(['*z0074_c0002.tif']);
 numberofFiles = length(TiffFiles2);
@@ -280,17 +288,10 @@ saveas(inpaintedfigure,nameinpainted, 'jpg');
 saveas(blackandwhitefigure,nameblackandwhitefigure, 'jpg');
 [rLred, rN] = bwlabel(IM3);
 
-
-
-
-%get rid of overlapping red channels;
-intersectionimage = IM2-IM3;
-
-
-
-%intersectionimage=rLred&rLgray;
-
-%intersectionimage=rLgray;
+  
+%new intersection method with red and gray
+A=graymethod&IM3;
+intersectionimage = A;
 
 
 [rL, rN] = bwlabel(intersectionimage);
@@ -304,6 +305,20 @@ nameinpainted2 = cat(2,namenumber,nameinpaintedfigure2);
 nameblackandwhitefigure2 = cat(2,namenumber,nameblackandwhitefigure2);
 saveas(inpaintedfigure,nameinpainted2, 'jpg');
 %saveas(blackandwhitefigure,nameblackandwhitefigure2, 'jpg');
+
+
+
+%return subtraction of original from intersection to see if difference
+figure(8);
+
+B = intersectionimage-A;
+figure(2);
+imshow(B);
+inpaintedfigure=figure;
+
+nameinpaintedfigure2 ='intersection';
+nameinpainted2 = cat(2,namenumber,nameinpaintedfigure2);
+saveas(inpaintedfigure,nameinpainted2, 'jpg');
 
 
 %return only slices with cells
