@@ -15,7 +15,7 @@ global BoutonThresholdParameter;
 global GaussianSigma;
 
     
-[returnredcell, uniquemaskarrays, threshu] = cell_inpainting();
+[returnredcell, uniquemaskarrays, threshu] = cell_inpainting_newmethod();
 
 
 cd('InputImages');
@@ -35,104 +35,16 @@ end;
 %cd(imagedir);
 
 
-TiffFiles=dir(['*c0002.tif']);
+TiffFiles=dir(['*c002.tif*']);
 
 numberofFiles = length(TiffFiles);
   count=0;
  uniquemaskarraysize = size(uniquemaskarrays);
  loopsize = uniquemaskarraysize(2);
  for q=1:numberofFiles;
-     FileName = TiffFiles(q).name
-
+FileName = TiffFiles(q).name
 originalfile =imread(FileName);
-maxim=double(max(max(originalfile)));
-normimage=double(originalfile)/double(maxim);
-
- %save a version of normalized image
-  figure;
-  %imshow(normimage);
-  h = gcf; 
- name = num2str(q);
- name2 = 'normalizedimage';
- namefinal = cat(2,name,name2);
- %saveas(h,namefinal, 'jpg');  
-
-
-%apply gaussian filter to normalized images
-%gaussianfilter=fspecial('gauss',GaussianFilterRadius,GaussianSigma);
-%gaussianfilterfile = imfilter(normimage,gaussianfilter);
-
- %save a version of normalized image with gaussian file
-  
- 
- gaussianfilterfile = normimage;
-
-  figure;
-  %imshow(gaussianfilterfile);
-  h = gcf; 
- name = num2str(q);
- name2 = 'gaussianfilterfile';
- namefinal = cat(2,name,name2);
- %saveas(h,namefinal, 'jpg');  
-
-
- sizelengths=size(gaussianfilterfile(:,:,1));
- xlength = sizelengths(1);                                                                                            
- ylength = sizelengths(2); 
-     
- clear boutonthreshold;
-  for i = 1:xlength
-     for j = 1:ylength
- if(gaussianfilterfile(i,j)>BoutonThresholdParameter)
-    boutonthreshold(i,j) = 1;
-end;
-     end;
-  end;
-  
- %save a version of bouton thresholdedimage 
- figure;
- %imshow(boutonthreshold);
- h = gcf; 
- name = num2str(q);
- name2 = 'thresholdedimage';
- namefinal = cat(2,name,name2);
- %saveas(h,namefinal, 'jpg');  
-
-
- sizelengths=size(gaussianfilterfile(:,:,1));
- xlength = sizelengths(1);                                                                                            
- ylength = sizelengths(2); 
-  
- 
-  
- %Label the individual boutons
- 
- clear binary;
- clear rfinal;
- clear centroidpoints;
- clear rRGB;
- clear overlay;
- clear binary;
- 
- 
- 
- %binary = im2bw(boutonthreshold,.2);
-  
- %save a version of applied binary image thresholding
-%  figure;
-%  %imshow(binary);
-%  h = gcf; 
-%  name = num2str(q);
-%  name2 = 'appliedbinaryimagethresholding';
-%  namefinal = cat(2,name,name2);
-%  saveas(h,namefinal, 'jpg');  
-
-
- sizelengths=size(gaussianfilterfile(:,:,1));
- xlength = sizelengths(1);                                                                                            
- ylength = sizelengths(2); 
- 
- 
+boutonthreshold =originalfile;
  rfinal = bwareaopen(boutonthreshold,ConnectivitySize);
  [rLareaopen, areaopen] = bwlabel(rfinal);
  extremapoints=regionprops(rLareaopen,'Extrema');
