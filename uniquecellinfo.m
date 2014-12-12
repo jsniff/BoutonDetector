@@ -25,12 +25,11 @@ fprintf(fid, '%s\t%s\t%s\t%s\t%s\t%s\n', 'ImageSlice', 'CellNumber', 'SizeofCell
 
 %rename forcell mask input
 sizes=size(cellinfomask);
-xlength = sizes(1);
 ylength=sizes(2);
 count = 0;
 originalcount = 0;
 xcoordsarray = zeros(length(cellinfomask),ylength);
-     for i = 1:xlength;    
+     for i = 1:length(cellinfomask);    
      for j = 1:ylength;
          %add first row of cells
      if(i==1)

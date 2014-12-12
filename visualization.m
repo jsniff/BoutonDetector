@@ -53,9 +53,9 @@ boutonrevisedallimagesdata = boutonrevisedallimages.data;
 
 cd('InputImages');
 
-TiffFiles=dir(['stack*c001.tif*']);
-TiffFiles2=dir(['stack*c002.tif*']);
-TiffFiles3=dir(['stack*c003.tif*']);
+TiffFiles=dir(['*c0001.tif']);
+TiffFiles2=dir(['*c0002.tif']);
+TiffFiles3=dir(['*c0003.tif']);
 
 
 numberofFiles = length(TiffFiles);
@@ -67,9 +67,10 @@ labels = cellstr( num2str([1:max(boutonrevisedallimagesdata(:,1))]') );
 nonemptyslicecount=0;                    
 boundarycounter=0;
 
+                          
                       
 for z=1:numberofFiles
-                       z
+                        
                           close all;
                           
                           FileName=TiffFiles(z).name;
@@ -94,9 +95,8 @@ for z=1:numberofFiles
                           sizeimage = size(normimage2);
                           sizexaxis = sizeimage(1);
                           sizeyaxis = sizeimage(2);
-                          keyboard;
                           normimageremoveblue = zeros(sizexaxis, sizeyaxis);
-                          figure;
+                          %figure;
                           rgb_image = cat(3, normimage, normimage2,normimage3);
                          imshow(rgb_image);
                           %figure;
@@ -116,7 +116,7 @@ for z=1:numberofFiles
                           %for plotting borders around cells
                           
                           TestMatrix = zeros(351,992);
-                     
+                          
                      sizecellmaskboundary=0;
                      CentroidMaskx=0;
                       CentroidMasky =0;
