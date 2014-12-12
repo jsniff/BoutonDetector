@@ -53,9 +53,9 @@ boutonrevisedallimagesdata = boutonrevisedallimages.data;
 
 cd('InputImages');
 
-TiffFiles=dir(['*c0001.tif']);
-TiffFiles2=dir(['*c0002.tif']);
-TiffFiles3=dir(['*c0003.tif']);
+TiffFiles=dir(['*c001.tif']);
+TiffFiles2=dir(['*c002.tif']);
+TiffFiles3=dir(['*c003.tif']);
 
 
 numberofFiles = length(TiffFiles);
